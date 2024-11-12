@@ -1,0 +1,102 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+group = 'io.linkedlogics'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+jacoco {
+    reportsDirectory = file("$buildDir/reports/jacoco")
+}
+
+dependencies {
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.3'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
+	implementation 'org.yaml:snakeyaml:1.28'
+	implementation 'org.slf4j:slf4j-api:1.7.36'	
+	implementation 'org.slf4j:slf4j-simple:1.7.36'
+	implementation 'org.codehaus.groovy:groovy:3.0.9'
+	implementation 'org.codehaus.groovy:groovy-json:3.0.9'
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	implementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+	implementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
+	testImplementation 'org.assertj:assertj-core:3.22.0'
+	testImplementation 'org.mockito:mockito-core:4.8.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier.set('sources')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.linkedlogics'
+            artifactId = 'linkedlogics'
+            version = "$version"
+
+            from components.java
+            
+            // Add a new artifact for sources
+            artifact(sourcesJar)
+            
+            pom {
+                name = 'LinkedLogics'
+                description = 'Linked-Logics Framework'
+                url = 'http://www.linkedlogics.io'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'rdavudov'
+                        name = 'Rajab Davudov'
+                        email = 'radjab@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://rdavudov/linkedlogics.git'
+                    developerConnection = 'scm:git:ssh://rdavudov/linkedlogics.git'
+                    url = 'http://www.linkedlogics.io'
+                }
+            }
+        }
+    }
+    
+    repositories {
+        mavenLocal()
+    }
+}

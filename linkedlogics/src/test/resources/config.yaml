@@ -1,0 +1,13 @@
+linkedlogics:
+  application:
+    name: test
+  key1: value1
+  key2: value2
+  obj1:
+    key1: value1
+    obj2: 
+      key1: value1
+    lst1:
+      - value1
+      - value2
+      - value3

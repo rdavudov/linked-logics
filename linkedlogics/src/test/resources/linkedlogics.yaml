@@ -1,0 +1,12 @@
+linkedlogics:
+  version: 1.0
+  application:
+    name: test
+  
+  services:
+    callback:
+      expire-time: 1
+    processor:
+      timeout: 300
+    evaluator:
+      check-syntax: true
