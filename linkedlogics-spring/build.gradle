@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+group = 'io.linkedlogics'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+jacoco {
+    reportsDirectory = file("$buildDir/reports/jacoco")
+}
+
+dependencies {
+	implementation 'io.linkedlogics:linkedlogics:1.0.0'
+	compileOnly 'org.springframework.boot:spring-boot-starter:3.2.11'
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+
