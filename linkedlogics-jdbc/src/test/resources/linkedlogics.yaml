@@ -1,0 +1,18 @@
+linkedlogics:
+  application:
+    name: test
+  jdbc:
+    url: "jdbc:h2:mem:sample;INIT=RUNSCRIPT FROM 'classpath:create.sql';DB_CLOSE_ON_EXIT=FALSE"
+    username: sa
+    password: password
+    driver: org.h2.Driver
+  services:
+    processor:
+      bypass: true
+      timeout: 30
+    process:
+      refresh:
+        enabled: false    
+    limit:
+      cleanup:
+        interval: 300

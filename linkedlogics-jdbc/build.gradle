@@ -35,16 +35,19 @@ jacoco {
 dependencies {
 	implementation 'io.linkedlogics:linkedlogics:1.0.0'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
-	implementation 'org.springframework.data:spring-data-redis:2.3.3.RELEASE'
-	implementation 'redis.clients:jedis:3.3.0'
-	compileOnly 'org.projectlombok:lombok:1.18.22'
-	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	implementation 'org.springframework:spring-jdbc:5.3.22'
+	implementation 'org.jooq:jooq:3.17.2'
+	implementation 'com.zaxxer:HikariCP:4.0.3'
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
 	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.0'
 	testImplementation 'org.assertj:assertj-core:3.22.0'
 	testImplementation 'org.mockito:mockito-core:4.8.0'
 	testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
-	testImplementation 'it.ozimov:embedded-redis:0.7.3'
+	implementation 'com.h2database:h2:2.1.214'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }
+
+
 
