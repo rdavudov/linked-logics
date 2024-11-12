@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+group = 'io.linkedlogics'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+jacoco {
+    reportsDirectory = file("$buildDir/reports/jacoco")
+}
+
+dependencies {
+	implementation 'io.linkedlogics:linkedlogics:1.0.0'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+	implementation 'org.springframework.data:spring-data-redis:2.3.3.RELEASE'
+	implementation 'redis.clients:jedis:3.3.0'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.0'
+	testImplementation 'org.assertj:assertj-core:3.22.0'
+	testImplementation 'org.mockito:mockito-core:4.8.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
+	testImplementation 'it.ozimov:embedded-redis:0.7.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.linkedlogics'
+            artifactId = 'linkedlogics-redis'
+            version = "$version"
+
+            from components.java
+        
+            pom {
+                name = 'LinkedLogics Redis'
+                description = 'Linked-Logics Framework'
+                url = 'http://www.linkedlogics.dev'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'rdavudov'
+                        name = 'Rajab Davudov'
+                        email = 'radjab@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://linkedlogics/linkedlogics-redis.git'
+                    developerConnection = 'scm:git:ssh://linkedlogics/linkedlogics-redis.git'
+                    url = 'http://www.linkedlogics.dev'
+                }
+            }
+        }
+    }
+}
+
+

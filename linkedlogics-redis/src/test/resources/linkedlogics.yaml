@@ -1,0 +1,14 @@
+linkedlogics:
+  application:
+    name: test
+  redis:
+    host: localhost
+    port: 6370
+    timeout: 10000
+  services:
+    processor:
+      bypass: true
+      timeout: 30
+    process:
+      refresh:
+        enabled: false
