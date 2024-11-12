@@ -1,0 +1,9 @@
+linkedlogics:
+  application:
+    name: test
+  kafka:
+    bootstrap-servers: "localhost:29092"
+  services:
+    processor:
+      bypass: false
+      timeout: 30
